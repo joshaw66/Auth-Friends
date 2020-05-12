@@ -3,8 +3,11 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import Login from "./components/Login.js";
-import Friends from "./components/Friends";
+// import Friends from "./components/Friends";
+import AddFriend from "./hooks/useForm";
 import PrivateRoute from "./components/PrivateRoute.js";
+
+//import AddFriend from "./hooks/useForm";//
 
 function App() {
   return (
@@ -14,10 +17,10 @@ function App() {
           <Link to="/login">Login</Link>
         </div>
         <div>
-          <Link to="/Friends">Friends</Link>
+          <Link to="/useForm">Friends</Link>
         </div>
         <Switch>
-          <PrivateRoute exact path="/Friends" component={Friends} />
+          <PrivateRoute exact path="/useForm" component={AddFriend} />
           <Route path="/login" component={Login} />
           <Route component={Login} />
         </Switch>

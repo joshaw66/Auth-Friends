@@ -16,7 +16,7 @@ const AddFriend = () => {
   const onSubmit = e => {
     e.preventDefault()
     axiosWithAuth()
-      .post("/friends", friendData)
+      .post("/useForm", friendData)
       .then(res => { 
         console.log(e.target)
         setFriendData(
@@ -54,7 +54,7 @@ const AddFriend = () => {
         placeholder="Friend's email"
         onChange={handleChange}
       />
-      <button type="submit">Add Friend!</button>
+      <button type="submit">Add Friend</button>
     </form>
   );
 };

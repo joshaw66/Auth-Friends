@@ -4,7 +4,7 @@ import axiosWithAuth from '../utilities/AxiosWithAuth'
 import AddFriend from '../hooks/useForm'
 import Friends from "./Friends.js"
 
-const MyFriends = () => {
+const FriendCard = () => {
   const [friends, setFriends] = useState([])
 
   useEffect(() => {
@@ -15,17 +15,17 @@ const MyFriends = () => {
   })
 
   return(
-    <>
-      <AddFriend />
+    <div>
+      <AddFriend/>
       <h1>Friends List</h1>
       {friends.map(friend => (
         <div key={friend.id}>
           <Friends banana={friend} />
         </div>
       ))}
-    </>
+    </div>
   )
 
 }
 
-export default MyFriends;
+export default FriendCard;
