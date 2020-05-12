@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import useForm from "../hooks/useForm.js";
+import useForm from "../hooks/useForm";
 import { axiosWithAuth } from "../utilities/AxiosWithAuth";
+
 
 import FriendCard from "./FriendCard";
 
@@ -65,4 +66,4 @@ const Friends = props => {
   );
 };
 
-export default Friends; 
+export default Friends;

@@ -1,35 +1,35 @@
-import React from "react";
-import useForm from '../hooks/useForm';
+import React, { useState }from "react";
+import axiosWithAuth from '../utilities/AxiosWithAuth';
 
 const Login = props => {
-  console.log(props);
-  const { handleChanges, handleLoginSubmit, values } = useForm(submit);
+  const[userCredentials, setUserCredentials] = useState({username:'', password:''})
 
-  function submit() {
-    console.log("submitted successfully");
-    props.history.push("/friends");
+  const handleChange = e => {
+    setUserCredentials(
+      {
+        ...userCredentials,
+        [e.target.name]: e.target.value
+      }
+    )
+  }
+
+  const onSubmit = e => {
+    e.preventDefault();
+    axiosWithAuth()
+    .post('/login', userCredentials)
+    .then(res => {
+      localStorage.setItem('token', res.data.payload)
+      props.history.push('/myfriends')
+    })
+    .catch(err => console.error(err))
   }
 
   return (
     <div>
-      <form onSubmit={handleLoginSubmit}>
-        <label>User Name:</label>
-        <input
-          type="text"
-          name="username"
-          placeholder="User Name"
-          value={values.username}
-          onChange={handleChanges}
-        />
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={values.password}
-          onChange={handleChanges}
-        />
-        <button>Login</button>
+      <form onSubmit={onSubmit}>
+        <input type="text" name="username" value={userCredentials.username} onChange={handleChange} />
+        <input type="password" name="password" value={userCredentials.password} onChange={handleChange} />
+        <button> Log In </button>
       </form>
     </div>
   );
