@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
+import axiosWithAuth from '../utilities/AxiosWithAuth'
 
-const FriendCard = props => {
-  return (
-    <div className="card">
-      <h4>{props.friend.name}</h4>
-      <p>{props.friend.age} years old</p>
-      <p>{props.friend.email}</p>
-    </div>
-  );
-};
+import AddFriend from '../hooks/useForm'
+import Friends from "./Friends.js"
 
-export default FriendCard;
+const MyFriends = () => {
+  const [friends, setFriends] = useState([])
+
+  useEffect(() => {
+    axiosWithAuth()
+    .get("/friends")
+    .then(res => setFriends(res.data))
+    .catch(err => console.error(err))
+  })
+
+  return(
+    <>
+      <AddFriend />
+      <h1>Friends List</h1>
+      {friends.map(friend => (
+        <div key={friend.id}>
+          <Friends banana={friend} />
+        </div>
+      ))}
+    </>
+  )
+
+}
+
+export default MyFriends;

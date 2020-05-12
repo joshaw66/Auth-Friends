@@ -1,58 +1,62 @@
-import { useState } from "react";
-import { axiosWithAuth } from "../utilities/AxiosWithAuth";
+import React, { useState } from "react";
+import axiosWithAuth from "../utilities/AxiosWithAuth.js";
 
-const useForm = callback => {
-  const [values, setValues] = useState({
-    username: "",
-    password: "",
-    name: "",
-    age: "",
-    email: ""
-  });
+const AddFriend = () => {
+  const [friendData, setFriendData] = useState({name:"", age:"", email:""})
 
-  const handleChanges = e => {
-    const { name, value } = e.target;
+  const handleChange = e => {
+    setFriendData(
+      {
+        ...friendData,
+        [e.target.name]: e.target.value
+      }
+    )
+  }
 
-    console.log(e.target.name);
-    console.log(e.target.value);
-    setValues({
-      ...values,
-      [name]: value
-    });
-  };
-
-  const handleLoginSubmit = e => {
-    e.preventDefault();
-    console.log(values);
+  const onSubmit = e => {
+    e.preventDefault()
     axiosWithAuth()
-      .post("/login", values)
-      .then(res => {
-        console.log(res.data);
-        localStorage.setItem("token", res.data.payload);
-        callback();
+      .post("/friends", friendData)
+      .then(res => { 
+        console.log(e.target)
+        setFriendData(
+          {
+            ...friendData,
+            name: "",
+            age: "",
+            email:""
+          }
+        )
       })
-      .catch(err => console.log(err));
+      .catch(err => console.error(err));
   };
 
-  const handleFriendSubmit = e => {
-    e.preventDefault();
-    console.log(values);
-    axiosWithAuth()
-      .post("/friends", values)
-      .then(res => {
-        console.log(res.data);
-        setValues({ name: "", age: "", email: "" });
-      })
-      .catch(err => console.log(err));
-    callback();
-  };
-
-  return {
-    handleChanges,
-    handleLoginSubmit,
-    handleFriendSubmit,
-    values
-  };
+  return (
+    <form onSubmit={onSubmit}>
+      <input
+        type="text"
+        name="name"
+        value={friendData.name}
+        placeholder="Friend's Name"
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="age"
+        value={friendData.age}
+        placeholder="Friend's Age"
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="email"
+        value={friendData.email}
+        placeholder="Friend's email"
+        onChange={handleChange}
+      />
+      <button type="submit">Add Friend!</button>
+    </form>
+  );
 };
 
-export default useForm;
+export default AddFriend;
