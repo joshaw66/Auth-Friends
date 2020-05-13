@@ -1,32 +1,33 @@
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import React from 'react';
+import { Route } from 'react-router-dom';
 
-import Login from "./components/Login.js";
-// import Friends from "./components/Friends";
-import AddFriend from "./hooks/useForm";
-import PrivateRoute from "./components/PrivateRoute.js";
+import { Login } from './components/Login';
+import PrivateRoute from './components/PrivateRoute';
+import { FriendsList } from './components/FriendsList';
+import { Home } from './components/Home';
+import { AddFriendForm } from './components/AddFriendForm';
 
-//import AddFriend from "./hooks/useForm";//
+import './App.css';
+
 
 function App() {
-  return (
-    <Router>
-      <div>
+
+
+    return (
         <div>
-          <Link to="/login">Login</Link>
-        </div>
-        <div>
-          <Link to="/useForm">Friends</Link>
-        </div>
-        <Switch>
-          <PrivateRoute exact path="/useForm" component={AddFriend} />
-          <Route path="/login" component={Login} />
-          <Route component={Login} />
-        </Switch>
-      </div>
-    </Router>
-  );
+            <Route path='/login'>
+                <Login />
+            </Route>
+            <PrivateRoute path='/friends'>
+                <Home />
+                <FriendsList />
+            </PrivateRoute>
+            <PrivateRoute path='/addFriend'>
+                <Home />
+                <AddFriendForm />
+            </PrivateRoute>
+        </div>  
+    );
 }
 
 export default App;
