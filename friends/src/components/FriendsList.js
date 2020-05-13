@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-
 import { FriendCard } from './FriendCard';
+import styled from 'styled-components';
+
+
+
 
 export const FriendsList = () => {
     const[isLoading, setIsLoading] = useState(false);
@@ -30,7 +32,7 @@ export const FriendsList = () => {
         <div>
             { isLoading && (
                 <div>
-                    <h2>Loading All Friends...</h2>
+                    <h2>Welcome to Central Perk...</h2>
                 </div>
             )}
             { error && !isLoading && (

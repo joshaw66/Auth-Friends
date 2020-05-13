@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const SubmitForm = styled.form`
+    border: solid;
+`
 
 export const Login = () => {
     const history = useHistory();;
@@ -34,7 +39,7 @@ export const Login = () => {
 
     return(
         <div>
-            <form onSubmit={handleSubmit}>
+            <SubmitForm onSubmit={handleSubmit}>
                 <input 
                     type='text'
                     name='username'
@@ -52,7 +57,7 @@ export const Login = () => {
                 <button type="submit">
                     Submit
                 </button>
-            </form>
+            </SubmitForm>
         </div>    
     );
 };

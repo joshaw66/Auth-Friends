@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
+import styled from 'styled-components';
 
 export const AddFriendForm = () => {
     const [addedFriend, setAddedFriend] = useState(false);
